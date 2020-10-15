@@ -3,7 +3,7 @@ from jinja2 import Template
 import numpy as np
 import pandas as pd
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 @app.route('/')
 @app.route('/index/')
@@ -40,7 +40,7 @@ def get_corr_list(name):
     corr_with_new = pd.DataFrame(anime_like, columns=['Correlation'])
     corr_with_new.dropna(inplace=True)
     corr_with_new = corr_with_new.join(score_mean_count['score_counts'])
-    corr_list = corr_with_new[corr_with_new ['score_counts'] > 50].sort_values('Correlation', ascending=False).head(6)[1:]
+    corr_list = corr_with_new[corr_with_new ['score_counts'] > 75].sort_values('Correlation', ascending=False).head(6)[1:]
     return corr_list # ['Correlation'].keys().tolist()
 
 if __name__ == '__main__':
